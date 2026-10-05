@@ -1,0 +1,188 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select, button {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #clearFilters {
+            background: #777;
+            color: white;
+        }
+
+        #refreshData {
+            background: #1976d2;
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #eee;
+        }
+
+        #noResults {
+            display: none;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .links {
+            margin-top: 20px;
+        }
+
+        .links a {
+            margin-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Dashboard</h1>
+
+    <div class="controls">
+
+        <input
+            type="text"
+            id="nameSearch"
+            placeholder="Search by name"
+        >
+
+        <input
+            type="text"
+            id="emailSearch"
+            placeholder="Search by email"
+        >
+
+        <select id="programFilter">
+            <option value="">All Programs</option>
+
+            {% for program in programs %}
+                <option value="{{ program }}">
+                    {{ program }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button id="clearFilters">
+            Clear Filters
+        </button>
+
+        <button id="refreshData">
+            Refresh Data
+        </button>
+
+    </div>
+
+    <p>
+        Showing
+        <strong id="resultCount">{{ students|length }}</strong>
+        student(s)
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Program</th>
+                <th>Year Level</th>
+            </tr>
+        </thead>
+
+        <tbody id="studentTableBody">
+
+            {% for student in students %}
+
+            <tr
+                data-name="{{ student.name|lower }}"
+                data-email="{{ student.email|lower }}"
+                data-program="{{ student.program }}"
+            >
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.program }}</td>
+                <td>{{ student.year_level }}</td>
+            </tr>
+
+            {% empty %}
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <div id="noResults">
+        No matching student records found.
+    </div>
+
+    <div class="links">
+
+        <a href="{% url 'student_list' %}">
+            Student List
+        </a>
+
+        <a href="{% url 'student_create' %}">
+            Add Student
+        </a>
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+
+    </div>
+
+</div>
+
+<script src="{% static 'registration/js/student_dashboard.js' %}"></script>
+
+</body>
+</html>

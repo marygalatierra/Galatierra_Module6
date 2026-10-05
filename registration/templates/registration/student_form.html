@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% if student %}
+            Edit Student
+        {% else %}
+            Add Student
+        {% endif %}
+    </title>
+</head>
+
+<body>
+
+<h1>
+    {% if student %}
+        Edit Student
+    {% else %}
+        Add Student
+    {% endif %}
+</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <p>
+        <label>Name:</label><br>
+        <input
+            type="text"
+            name="name"
+            value="{{ student.name|default:'' }}"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Email:</label><br>
+        <input
+            type="email"
+            name="email"
+            value="{{ student.email|default:'' }}"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Program:</label><br>
+        <input
+            type="text"
+            name="program"
+            value="{{ student.program|default:'' }}"
+            required
+        >
+    </p>
+
+    <p>
+        <label>Year Level:</label><br>
+        <input
+            type="text"
+            name="year_level"
+            value="{{ student.year_level|default:'' }}"
+            required
+        >
+    </p>
+
+    <button type="submit">Save Student</button>
+
+</form>
+
+<p>
+    <a href="{% url 'student_list' %}">
+        Back to Student List
+    </a>
+</p>
+
+</body>
+</html>
