@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+</head>
+
+<body>
+
+    <h1>Student Dashboard</h1>
+
+    <p>Welcome to the Student Management System.</p>
+
+    <p>
+        Total Students:
+        <span id="student-count">0</span>
+    </p>
+
+    <p id="loading-message">
+        Loading students...
+    </p>
+
+    <p id="error-message"></p>
+
+    <table id="student-table" border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Year Level</th>
+            </tr>
+        </thead>
+
+        <tbody id="student-table-body"></tbody>
+    </table>
+
+    <br>
+
+    <button type="button" onclick="logout()">Logout</button>
+
+    <script src="{% static 'registration/js/student_dashboard.js' %}"></script>
+
+</body>
+</html>
